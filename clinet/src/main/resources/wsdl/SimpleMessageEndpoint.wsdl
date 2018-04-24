@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://server.mgie.pl/MessageService" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="SimpleMessageEndpoint" targetNamespace="http://server.mgie.pl/MessageService">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://server.mgie.pl/MessageService" elementFormDefault="unqualified" targetNamespace="http://server.mgie.pl/MessageService" version="1.0">
+
+  <xs:element name="getMessage" type="tns:getMessage"/>
+
+  <xs:element name="getMessageResponse" type="tns:getMessageResponse"/>
+
+  <xs:complexType name="getMessage">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="request" type="tns:messageRequest"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="messageRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="firstName" type="xs:string"/>
+      <xs:element minOccurs="0" name="lastName" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="getMessageResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:messageResponse"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="messageResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="response" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="getMessageResponse">
+    <wsdl:part element="tns:getMessageResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getMessage">
+    <wsdl:part element="tns:getMessage" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="SimpleMessageEndpoint">
+    <wsdl:operation name="getMessage">
+      <wsdl:input message="tns:getMessage" name="getMessage">
+    </wsdl:input>
+      <wsdl:output message="tns:getMessageResponse" name="getMessageResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="SimpleMessageEndpointSoapBinding" type="tns:SimpleMessageEndpoint">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="getMessage">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getMessage">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getMessageResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="SimpleMessageEndpoint">
+    <wsdl:port binding="tns:SimpleMessageEndpointSoapBinding" name="SimpleMessageEndpointPort">
+      <soap:address location="http://localhost:8080/services/SimpleMessageEndpoint"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
